@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Data Viz – Explaining the Inexplicable</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-ba8f7c244c1f50cbf6c6a3aa3874339a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Data Viz</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="data-visualization-assignment-telling-a-story-with-data" class="level1">
+<h1>Data Visualization Assignment: Telling a Story with Data</h1>
+<section id="purpose" class="level2">
+<h2 class="anchored" data-anchor-id="purpose">Purpose</h2>
+<p>The goal of this assignment is <strong>not simply to make several good-looking graphs</strong>. Your goal is to use a sequence of visualizations to communicate an empirical <strong>story</strong>: to guide a reader through a question, pattern, comparison, complication, or resolution in a deliberate order.</p>
+<p>A useful test: <strong>if your figures could be rearranged in any order without changing the meaning of the presentation, you probably have a collection of plots rather than a data story.</strong></p>
+<p>You will then tell the <strong>same underlying story twice</strong>. The evidence should remain the same, but your design choices, level of technical detail, prose, annotations, and use of interactivity should reflect two different communication settings:</p>
+<ol type="1">
+<li>A <strong>scientific article</strong></li>
+<li>An <strong>accessible/dynamic web-based outlet</strong></li>
+</ol>
+<p>At least <strong>two substantive data visualizations</strong> are required in each version.</p>
+<hr>
+</section>
+<section id="learning-goals" class="level2">
+<h2 class="anchored" data-anchor-id="learning-goals">Learning Goals</h2>
+<p>By completing this assignment, you should be able to:</p>
+<ul>
+<li>Identify a clear empirical message in a dataset and organize evidence into a coherent narrative arc.</li>
+<li>Create multiple visualizations that perform distinct jobs within that narrative rather than redundantly displaying the same result.</li>
+<li>Use R to produce polished, reproducible data visualizations and a rendered web document.</li>
+<li>Adapt visualization design and explanatory text to different audiences and publication contexts.</li>
+<li>Distinguish scientific precision and technical reporting from public-facing clarity, accessibility, and engagement.</li>
+<li>Use Git and GitHub to make the complete analysis reproducible and GitHub Pages to publish the finished work.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="define-the-story" class="level1">
+<h1>1. Define the Story</h1>
+<p><strong>Begin with the story, not the chart type.</strong></p>
+<p>Before building your final visualizations, decide what you want a reader to learn and how the evidence needs to unfold.</p>
+<section id="story-summary-250-words-maximum" class="level3">
+<h3 class="anchored" data-anchor-id="story-summary-250-words-maximum">Story Summary — 250 Words Maximum</h3>
+<p>At the beginning of your site, provide a concise summary of the <strong>story you are trying to tell</strong>.</p>
+<p>This is not an abstract describing everything you did. Instead, identify:</p>
+<ul>
+<li>the central question, observation, or puzzle;</li>
+<li>the key development, comparison, or tension; and</li>
+<li>the conclusion, resolution, or takeaway that the visual evidence supports.</li>
+</ul>
+<p>Use Claus Wilke’s discussion of storytelling as a guide:</p>
+<p><strong>Fundamentals of Data Visualization — Chapter 29: Telling a Story and Making a Point</strong><br>
+https://clauswilke.com/dataviz/telling-a-story.html</p>
+<p>In particular, attend to the idea that figures should have a clear <strong>purpose within a story arc</strong>.</p>
+<hr>
+</section>
+</section>
+<section id="tell-the-story-with-visualizations" class="level1">
+<h1>2. Tell the Story with Visualizations</h1>
+<p>After your summary, walk the reader through the story using <strong>text and at least two substantive data visualizations</strong>.</p>
+<p>The prose and figures should work together. Introduce what the reader needs to know, direct their attention toward the relevant evidence, and explain why each new visualization advances the story.</p>
+<p>Your visualizations should satisfy the following principles:</p>
+<ul>
+<li><p>Each visualization should have a <strong>clear purpose</strong> in the sequence.</p></li>
+<li><p>The sequence should create <strong>progression</strong>. For example:</p>
+<p><strong>establish a pattern → introduce a comparison or complication → resolve or reinterpret the initial pattern</strong></p></li>
+<li><p>Use informative titles, labels, captions, and/or annotations so readers know what they should notice.</p></li>
+<li><p>Do not include a plot merely because you made it during data exploration. <strong>Every final figure should earn its place in the story.</strong></p></li>
+<li><p>At least two visualizations are required. Use more when they genuinely improve the narrative.</p></li>
+</ul>
+<hr>
+</section>
+<section id="tell-the-same-story-for-two-outlets" class="level1">
+<h1>3. Tell the Same Story for Two Outlets</h1>
+<p>You will now tell the same empirical story <strong>twice</strong>.</p>
+<p>The underlying evidence and substantive conclusions should remain consistent. What should change is <strong>how you communicate that evidence to the intended audience</strong>.</p>
+<section id="version-a-scientific-article" class="level2">
+<h2 class="anchored" data-anchor-id="version-a-scientific-article">Version A: Scientific Article</h2>
+<p>Present your story as though the figures and accompanying text were being prepared for a conventional scientific journal article.</p>
+<p>Prioritize <strong>precision, interpretability, reproducibility, and technical completeness</strong>.</p>
+<p>Your scientific version should generally:</p>
+<ul>
+<li>Use <strong>static figures</strong>.</li>
+<li>Be fully interpretable in <strong>black-and-white or greyscale</strong> as is often required by scientific journals. Do not rely on colour to encode essential information.</li>
+<li>Use conventional scientific labels, units, scales, legends/direct labels, and figure captions as appropriate.</li>
+<li>Report technical information needed to interpret the visualization—for example, sample sizes, uncertainty, model quantities, or definitions where relevant.</li>
+<li>Keep decorative elements restrained. The visual hierarchy should emphasize the <strong>data and the scientific point</strong>.</li>
+<li>Use prose appropriate for a scientifically literate reader. Technical terminology is appropriate when it improves precision.</li>
+</ul>
+<hr>
+</section>
+<section id="version-b-accessible-dynamic-outlet" class="level2">
+<h2 class="anchored" data-anchor-id="version-b-accessible-dynamic-outlet">Version B: Accessible / Dynamic Outlet</h2>
+<p>Now present the <strong>same empirical story</strong> for an audience encountering it through an engaging web article, explainer, or similar public-facing medium.</p>
+<p>Prioritize <strong>clarity, accessibility, narrative flow, and reader engagement</strong> without changing or overstating the evidence.</p>
+<p>Your accessible/dynamic version might:</p>
+<ul>
+<li>Use plain-language, <strong>takeaway-oriented headings</strong> and explanatory text.</li>
+<li>Use colour, highlighting, direct annotation, icons, small multiples, or other design devices when they help guide attention.</li>
+<li>Use interactive or dynamic elements—for example, tooltips, filters, animation, or <code>plotly</code>—when they add genuine explanatory value. <strong>Interactivity is cool, but is not required for its own sake.</strong></li>
+<li>Reduce unnecessary technical detail in the main visual display while preserving enough context for the claims to be understood accurately.</li>
+<li>Make deliberate accessibility choices: readable text, sufficient contrast, sensible colour use, clear labels, and alternatives to colour-only encoding.</li>
+<li>Think about <strong>pacing</strong>. Guide the reader through the evidence rather than confronting them with all available information at once.</li>
+</ul>
+<section id="important-adaptation-is-not-decoration" class="level3">
+<h3 class="anchored" data-anchor-id="important-adaptation-is-not-decoration">Important: Adaptation Is Not Decoration</h3>
+<p>The two versions should <strong>not</strong> simply be identical figures with a different <code>ggplot2</code> theme applied.</p>
+<p>Your choices should demonstrate that you understand how <strong>audience and medium change what information is foregrounded, how it is explained, and how the reader’s attention is directed</strong>, while the underlying empirical claims remain consistent.</p>
+<hr>
+</section>
+</section>
+</section>
+<section id="exemplars-what-to-pay-attention-to" class="level1">
+<h1>Exemplars: What to Pay Attention To</h1>
+<p>The following examples illustrate different aspects of effective visual storytelling.</p>
+<section id="good-authority-republicans-fascination-with-testosterone-in-three-charts" class="level2">
+<h2 class="anchored" data-anchor-id="good-authority-republicans-fascination-with-testosterone-in-three-charts">1. Good Authority: Republicans’ Fascination with Testosterone, in Three Charts</h2>
+<p>https://goodauthority.org/news/republicans-fascination-with-testosterone-in-three-charts/</p>
+<p>This is close to the <strong>scope of the story expected for this assignment</strong>.</p>
+<p>Pay particular attention to how three relatively conventional plots become an argument through <strong>sequencing</strong>. Each visualization answers or develops something raised by the previous one, while the prose explains why the next piece of evidence matters.</p>
+<p>Notice that the effectiveness of the piece does not depend on technically elaborate visualizations. The strength comes from deciding:</p>
+<p><strong>What should the reader see first? What question does that create? What evidence should they see next?</strong></p>
+<hr>
+</section>
+<section id="the-economist-the-banana-index" class="level2">
+<h2 class="anchored" data-anchor-id="the-economist-the-banana-index">2. The Economist: The Banana Index</h2>
+<p>Data and materials:<br>
+https://github.com/TheEconomist/banana-index-data</p>
+<p>This example illustrates how <strong>repeating a visual grammar while changing the analytical perspective</strong> can itself tell a story.</p>
+<p>The comparison changes depending on how the environmental impact of food is evaluated—for example, relative to weight, calories, or protein.</p>
+<p>Pay attention to how holding much of the visual form constant makes it easier for the reader to focus on the thing that <em>is</em> changing: the basis of comparison.</p>
+<p>This is also an excellent example of making a potentially technical measurement issue <strong>intuitive and visually accessible</strong>.</p>
+<hr>
+</section>
+<section id="the-pudding-is-the-love-song-dying" class="level2">
+<h2 class="anchored" data-anchor-id="the-pudding-is-the-love-song-dying">3. The Pudding: Is the Love Song Dying?</h2>
+<p>https://pudding.cool/2024/11/love-songs/</p>
+<p>Consider this an <strong>aspirational example of public-facing data storytelling</strong>.</p>
+<p>You are <strong>not</strong> expected to reproduce the sophistication of its web development.</p>
+<p>Instead, pay attention to:</p>
+<ul>
+<li>pacing;</li>
+<li>progressive disclosure;</li>
+<li>annotation;</li>
+<li>interactivity where it is relevant and useful;</li>
+<li>accessible language;</li>
+<li>transitions between pieces of evidence; and</li>
+<li>how successive visualizations set up, qualify, or reinterpret the initial claim.</li>
+</ul>
+<p>Think about <strong>when</strong> the authors choose to show each piece of information rather than merely what visualization technique they use.</p>
+<hr>
+</section>
+<section id="learning-from-the-exemplars" class="level2">
+<h2 class="anchored" data-anchor-id="learning-from-the-exemplars">Learning from the Exemplars</h2>
+<p>Do not imitate these examples mechanically.</p>
+<p>Instead, use them to study how authors decide:</p>
+<p><strong>What does the reader see first?</strong></p>
+<p><strong>What question or tension does that create?</strong></p>
+<p><strong>What evidence comes next?</strong></p>
+<p><strong>How does that evidence change what the reader thinks about the previous visualization?</strong></p>
+<p><strong>What should the reader conclude by the end?</strong></p>
+<p>That sequence—not simply the number or attractiveness of the plots—is what turns several visualizations into a <strong>data story</strong>.</p>
+<hr>
+</section>
+</section>
+<section id="required-website-structure" class="level1">
+<h1>Required Website Structure</h1>
+<p>Your GitHub Pages site should make the following four components easy to find.</p>
+<section id="story-summary" class="level3">
+<h3 class="anchored" data-anchor-id="story-summary">1. Story Summary</h3>
+<p><strong>250 words or fewer.</strong></p>
+<p>State the empirical story you intend to tell.</p>
+</section>
+<section id="version-a-scientific-article-1" class="level3">
+<h3 class="anchored" data-anchor-id="version-a-scientific-article-1">2. Version A: Scientific Article</h3>
+<p>Text plus <strong>at least two visualizations</strong> that tell your story in a scientific-journal style.</p>
+</section>
+<section id="version-b-accessible-dynamic-outlet-1" class="level3">
+<h3 class="anchored" data-anchor-id="version-b-accessible-dynamic-outlet-1">3. Version B: Accessible / Dynamic Outlet</h3>
+<p>Text plus <strong>at least two visualizations</strong> that tell the same story for a broader, web-oriented audience.</p>
+</section>
+<section id="data-source-note" class="level3">
+<h3 class="anchored" data-anchor-id="data-source-note">4. Data / Source Note</h3>
+<p>Identify the dataset and its source. Briefly describe any important limitations, transformations, or other information needed to understand your analysis.</p>
+<hr>
+</section>
+</section>
+<section id="reproducibility-and-github-requirements" class="level1">
+<h1>Reproducibility and GitHub Requirements</h1>
+<p>Your repository should contain everything needed to understand and reproduce the rendered site.</p>
+<p>A reader should <strong>not</strong> have to reconstruct your workflow from copied-and-pasted output.</p>
+<p>Your repository should include:</p>
+<ul>
+<li>All R/Quarto source files used to generate the site.</li>
+<li>The data, when redistribution is permitted, or clear code/instructions for obtaining the data when it is not.</li>
+<li>All data cleaning, transformation, analysis, and visualization code required for the final output.</li>
+<li>A sensible project structure and informative file names.</li>
+<li>A rendered GitHub Pages site that works from the submitted URL.</li>
+<li>No broken figures, missing local files, or code that depends on unexplained objects from your interactive R session.</li>
+</ul>
+<hr>
+</section>
+<section id="what-to-submit" class="level1">
+<h1>What to Submit</h1>
+<p>Submit <strong>exactly two links</strong> through the course submission system:</p>
+<ol type="1">
+<li><strong>GitHub repository URL</strong> — the repository containing your complete source code/project.</li>
+<li><strong>GitHub Pages URL</strong> — the live website where the finished assignment is rendered and served.</li>
+</ol>
+<p>Before submitting, open both links in a <strong>private/incognito browser window</strong> and confirm that they are accessible and that the site renders correctly.</p>
+<hr>
+</section>
+<section id="what-strong-work-will-demonstrate" class="level1">
+<h1>What Strong Work Will Demonstrate</h1>
+<section id="story" class="level3">
+<h3 class="anchored" data-anchor-id="story">Story</h3>
+<p>A focused empirical point with a discernible narrative arc. The figures collectively move the reader from one idea to the next.</p>
+</section>
+<section id="purposeful-visualization" class="level3">
+<h3 class="anchored" data-anchor-id="purposeful-visualization">Purposeful Visualization</h3>
+<p>Each figure makes a clear point, uses an appropriate visual encoding, and contributes something distinct to the story.</p>
+</section>
+<section id="audience-adaptation" class="level3">
+<h3 class="anchored" data-anchor-id="audience-adaptation">Audience Adaptation</h3>
+<p>The scientific and accessible/dynamic versions make <strong>substantively different and well-justified communication choices</strong>, rather than superficial changes in themes or colours.</p>
+</section>
+<section id="clarity-and-accessibility" class="level3">
+<h3 class="anchored" data-anchor-id="clarity-and-accessibility">Clarity and Accessibility</h3>
+<p>Titles, annotations, labels, scales, colour/greyscale choices, and prose make the intended interpretation easy to follow without misleading the reader.</p>
+</section>
+<section id="technical-quality" class="level3">
+<h3 class="anchored" data-anchor-id="technical-quality">Technical Quality</h3>
+<p>Visualizations are accurate, polished, and appropriate to the data. Code is functional and reproducible.</p>
+</section>
+<section id="reproducible-publication" class="level3">
+<h3 class="anchored" data-anchor-id="reproducible-publication">Reproducible Publication</h3>
+<p>The repository is organized and complete, and the GitHub Pages site renders successfully from the submitted materials.</p>
+<hr>
+</section>
+</section>
+<section id="final-check-before-you-submit" class="level1">
+<h1>Final Check Before You Submit</h1>
+<p>Ask yourself:</p>
+<ul>
+<li>Can I state my <strong>story</strong> in a few sentences without simply listing the chart types I made?</li>
+<li>Do I have at least two substantive visualizations in each version?</li>
+<li>Does every figure have a specific job in the story?</li>
+<li>Would changing the order of my figures weaken or change the narrative? If not, have I really created a sequence?</li>
+<li>Does the scientific version look and read like material that could plausibly appear in a scientific article?</li>
+<li>Does the accessible/dynamic version guide a broader reader toward the same evidence without sacrificing accuracy?</li>
+<li>Are both versions telling the <strong>same underlying empirical story</strong>?</li>
+<li>Can someone reproduce the site from my repository?</li>
+<li>Do both submitted URLs work?</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
